@@ -1,0 +1,584 @@
+{
+	"info": {
+		"_postman_id": "beecad6c-e4b0-490d-978b-3855789834ba",
+		"name": "01_Automation-Petstore-Pets_Advanced",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27779519"
+	},
+	"item": [
+		{
+			"name": "Add a new pet to the store",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Size is less than 1000B\", function () {\r",
+							"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Body has correct keys\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"category\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"photoUrls\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"tags\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"status\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body has correct values\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(1111);\r",
+							"    pm.expect(pm.response.text()).to.include(1111);\r",
+							"    pm.expect(pm.response.text()).to.include(\"layka\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"doggie\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"https://placekitten.com/420/420\");\r",
+							"    pm.expect(pm.response.text()).to.include(1111);\r",
+							"    pm.expect(pm.response.text()).to.include(\"lay\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"available\");    \r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Keys-value is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.id).to.eql(1111);\r",
+							"    pm.expect(jsonData.category.id).to.eql(1111);\r",
+							"    pm.expect(jsonData.category.name).to.eql(\"layka\");\r",
+							"    pm.expect(jsonData.name).to.eql(\"doggie\");\r",
+							"    pm.expect(jsonData.photoUrls).to.eql([\"https://placekitten.com/420/420\"]);\r",
+							"    pm.expect(jsonData.status).to.eql(\"available\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Enite Header Keys-Values is correct\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");\r",
+							"    pm.response.to.have.header(\"Transfer-Encoding\", \"chunked\");\r",
+							"    pm.response.to.have.header(\"Connection\", \"keep-alive\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Origin\", \"*\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Methods\", \"GET, POST, DELETE, PUT\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Headers\", \"Content-Type, api_key, Authorization\");\r",
+							"    pm.response.to.have.header(\"Server\", \"Jetty(9.2.9.v20150224)\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.clear()\r",
+							"\r",
+							"pm.environment.set(\"ID\", Math.floor(Math.random() * 101));\r",
+							"\r",
+							"pm.environment.set(\"PETID\", Math.floor(Math.random() * 101));\r",
+							"\r",
+							"pm.environment.set(\"QTY\", Math.floor(Math.random() * 101));\r",
+							"\r",
+							"pm.environment.set(\"SHIPDATE\", new Date());\r",
+							"\r",
+							"//pm.environment.set(\"status\", \"placed\");\r",
+							"//pm.environment.set(\"complete\", false);\r",
+							"\r",
+							"//Date in UTC format\r",
+							"//pm.environment.set(\"shipDate\", new Date().getTime());\r",
+							"\r",
+							"let statusPick = [\"placed\", \"approved\", \"delivered\"];\r",
+							"let randomStatus = statusPick[Math.floor(Math.random() * statusPick.length)];\r",
+							"pm.environment.set(\"STATUS\", randomStatus);\r",
+							"\r",
+							"let completePick = [true, false];\r",
+							"let randomComplete = completePick[Math.floor(Math.random() * completePick.length)];\r",
+							"pm.environment.set(\"COMPLETE\", randomComplete);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1111,\r\n    \"category\": {\r\n        \"id\": 1111,\r\n        \"name\": \"layka\"\r\n    },\r\n    \"name\": \"doggie\",\r\n    \"photoUrls\": [\r\n        \"https://placekitten.com/420/420\"\r\n    ],\r\n    \"tags\": [\r\n        {\r\n            \"id\": 55555,\r\n            \"name\": \"lay\"\r\n        }\r\n    ],\r\n    \"status\": \"available\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an existing pett",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Size is less than 1000B\", function () {\r",
+							"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Body has correct keys\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"category\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"photoUrls\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"tags\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"status\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body has correct values\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(5555);\r",
+							"    pm.expect(pm.response.text()).to.include(0);\r",
+							"    pm.expect(pm.response.text()).to.include(\"string\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"doggie\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"string\");\r",
+							"    pm.expect(pm.response.text()).to.include(1);\r",
+							"    pm.expect(pm.response.text()).to.include(\"string\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"available\");    \r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Keys-value is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.id).to.eql(5555);\r",
+							"    pm.expect(jsonData.category.id).to.eql(0);\r",
+							"    pm.expect(jsonData.category.name).to.eql(\"string\");\r",
+							"    pm.expect(jsonData.name).to.eql(\"doggie\");\r",
+							"    pm.expect(jsonData.photoUrls).to.eql([\"string\"]);\r",
+							"    //pm.expect(jsonData.tags.id).to.eql(1);\r",
+							"    //pm.expect(jsonData.tags.name).to.eql(\"string\");\r",
+							"    pm.expect(jsonData.status).to.eql(\"available\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Enite Header Keys-Values is correct\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");\r",
+							"    pm.response.to.have.header(\"Transfer-Encoding\", \"chunked\");\r",
+							"    pm.response.to.have.header(\"Connection\", \"keep-alive\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Origin\", \"*\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Methods\", \"GET, POST, DELETE, PUT\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Headers\", \"Content-Type, api_key, Authorization\");\r",
+							"    pm.response.to.have.header(\"Server\", \"Jetty(9.2.9.v20150224)\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 5555,\r\n    \"category\": {\r\n        \"id\": 0,\r\n        \"name\": \"string\"\r\n    },\r\n    \"name\": \"doggie\",\r\n    \"photoUrls\": [\r\n        \"string\"\r\n    ],\r\n    \"tags\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"string\"\r\n        }\r\n    ],\r\n    \"status\": \"available\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finds Pets by status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Size is less than 1000B\", function () {\r",
+							"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Body has correct keys\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"category\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"photoUrls\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"tags\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"status\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body has correct values\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(5555);\r",
+							"    pm.expect(pm.response.text()).to.include(0);\r",
+							"    pm.expect(pm.response.text()).to.include(\"string\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"doggie\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"string\");\r",
+							"    pm.expect(pm.response.text()).to.include(1);\r",
+							"    pm.expect(pm.response.text()).to.include(\"string\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"available\");    \r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Keys-value is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.id).to.eql(5555);\r",
+							"    pm.expect(jsonData.category.id).to.eql(0);\r",
+							"    pm.expect(jsonData.category.name).to.eql(\"string\");\r",
+							"    pm.expect(jsonData.name).to.eql(\"doggie\");\r",
+							"    pm.expect(jsonData.photoUrls).to.eql([\"string\"]);\r",
+							"    //pm.expect(jsonData.tags.id).to.eql(1);\r",
+							"    //pm.expect(jsonData.tags.name).to.eql(\"string\");\r",
+							"    pm.expect(jsonData.status).to.eql(\"available\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Enite Header Keys-Values is correct\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");\r",
+							"    pm.response.to.have.header(\"Transfer-Encoding\", \"chunked\");\r",
+							"    pm.response.to.have.header(\"Connection\", \"keep-alive\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Origin\", \"*\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Methods\", \"GET, POST, DELETE, PUT\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Headers\", \"Content-Type, api_key, Authorization\");\r",
+							"    pm.response.to.have.header(\"Server\", \"Jetty(9.2.9.v20150224)\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/5555",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"5555"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find pet by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Size is less than 1000B\", function () {\r",
+							"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Body has correct keys\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"category\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"photoUrls\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"tags\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"status\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body has correct values\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(5555);\r",
+							"    pm.expect(pm.response.text()).to.include(0);\r",
+							"    pm.expect(pm.response.text()).to.include(\"string\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"doggie\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"string\");\r",
+							"    pm.expect(pm.response.text()).to.include(1);\r",
+							"    pm.expect(pm.response.text()).to.include(\"string\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"available\");    \r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Keys-value is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.id).to.eql(5555);\r",
+							"    pm.expect(jsonData.category.id).to.eql(0);\r",
+							"    pm.expect(jsonData.category.name).to.eql(\"string\");\r",
+							"    pm.expect(jsonData.name).to.eql(\"doggie\");\r",
+							"    pm.expect(jsonData.photoUrls).to.eql([\"string\"]);\r",
+							"    //pm.expect(jsonData.tags.id).to.eql(1);\r",
+							"    //pm.expect(jsonData.tags.name).to.eql(\"string\");\r",
+							"    pm.expect(jsonData.status).to.eql(\"available\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Enite Header Keys-Values is correct\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");\r",
+							"    pm.response.to.have.header(\"Transfer-Encoding\", \"chunked\");\r",
+							"    pm.response.to.have.header(\"Connection\", \"keep-alive\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Origin\", \"*\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Methods\", \"GET, POST, DELETE, PUT\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Headers\", \"Content-Type, api_key, Authorization\");\r",
+							"    pm.response.to.have.header(\"Server\", \"Jetty(9.2.9.v20150224)\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/5555",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"5555"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Updates a pet in the store with form data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Size is less than 1000B\", function () {\r",
+							"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Body has correct keys\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"code\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"type\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"message\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body has correct values\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(200);\r",
+							"    pm.expect(pm.response.text()).to.include(\"unknown\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"5555\");   \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Keys-value is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(200);\r",
+							"    pm.expect(jsonData.type).to.eql(\"unknown\");\r",
+							"    pm.expect(jsonData.message).to.eql(\"5555\");\r",
+							"});\r",
+							"pm.test(\"Enite Header Keys-Values is correct\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");\r",
+							"    pm.response.to.have.header(\"Transfer-Encoding\", \"chunked\");\r",
+							"    pm.response.to.have.header(\"Connection\", \"keep-alive\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Origin\", \"*\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Methods\", \"GET, POST, DELETE, PUT\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Headers\", \"Content-Type, api_key, Authorization\");\r",
+							"    pm.response.to.have.header(\"Server\", \"Jetty(9.2.9.v20150224)\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/5555",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"5555"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletes a pet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Size is less than 1000B\", function () {\r",
+							"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Body has correct keys\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"code\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"type\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"message\"); \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body has correct values\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(200);\r",
+							"    pm.expect(pm.response.text()).to.include(\"unknown\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"5555\");\r",
+							"  \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Keys-value is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.code).to.eql(200);\r",
+							"    pm.expect(jsonData.type).to.eql(\"unknown\");\r",
+							"    pm.expect(jsonData.message).to.eql(\"5555\");\r",
+							" \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Enite Header Keys-Values is correct\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");\r",
+							"    pm.response.to.have.header(\"Transfer-Encoding\", \"chunked\");\r",
+							"    pm.response.to.have.header(\"Connection\", \"keep-alive\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Origin\", \"*\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Methods\", \"GET, POST, DELETE, PUT\");\r",
+							"    pm.response.to.have.header(\"Access-Control-Allow-Headers\", \"Content-Type, api_key, Authorization\");\r",
+							"    pm.response.to.have.header(\"Server\", \"Jetty(9.2.9.v20150224)\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/5555",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"5555"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
