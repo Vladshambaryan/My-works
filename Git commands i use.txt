@@ -51,4 +51,11 @@ git branch recovered-branch
 # You may want to push that back to remote
 git push origin recovered-branch:recovered-branch
 
+
+git add .
+git commit -m "message"
+git push
+
+git pull - update your local repository синхронизация
+
 """
