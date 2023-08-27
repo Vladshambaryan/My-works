@@ -52,5 +52,11 @@ git branch recovered-branch
 git push origin recovered-branch:recovered-branch
 
 """
+git status
+git add .
+git commit -m "message"
+git push
+git pull
+
 
 """
