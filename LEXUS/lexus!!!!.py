@@ -7,6 +7,12 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 import random
 import time
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.edge.service import Service
 
 
 def delay():
@@ -19,7 +25,7 @@ wait = WebDriverWait(driver, 2)
 
 fake = Faker()
 
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 action = webdriver.ActionChains(driver)
 driver.get("https://www.lexus.com/")
 driver.maximize_window()
