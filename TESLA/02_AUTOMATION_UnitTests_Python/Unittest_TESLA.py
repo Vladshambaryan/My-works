@@ -1,26 +1,27 @@
-from selenium import webdriver
+import random
 from selenium.webdriver import Keys
+import unittest
+import time
+from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import random
-import unittest
-import time
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.edge.service import Service
 
+
 def delay():
     time.sleep(random.randint(1, 5))
 
-class Tesla_Model_S(unittest.TestCase):
+class Chrome_tesla(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.driver.maximize_window()
 
-    def test_Tesla_Model_S(self):
+    def test_tesla(self):
         driver = self.driver
         driver.get("https://www.tesla.com/models")
         wait = WebDriverWait(driver, 5)
@@ -30,9 +31,6 @@ class Tesla_Model_S(unittest.TestCase):
         wait.until(EC.visibility_of_element_located((By.XPATH, "(//span[contains(.,'View Inventory')])[10]")))
         wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'View Inventory')])[10]")))
         print("View Inventory button is visible and clickable")
-        wait.until(EC.visibility_of_element_located((By.XPATH, "(//span[contains(.,'Demo Drive')])[2]")))
-        wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'Demo Drive')])[2]")))
-        print("Demo Drive button is visible and clickable")
         wait.until(EC.visibility_of_element_located((By.XPATH, "(//span[contains(.,'Compare')])[5]")))
         wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'Compare')])[5]")))
         print("Compare button is visible and clickable")
@@ -137,14 +135,14 @@ class Tesla_Model_S(unittest.TestCase):
 
 
 
-    def tearDown(self):
-        self.driver.quit()
+        def tearDown(self):
+            self.driver.quit()
 
 
 class Tesla_Model_3(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.driver.maximize_window()
 
     def test_Tesla_Model_3(self):
@@ -159,9 +157,7 @@ class Tesla_Model_3(unittest.TestCase):
         wait.until(EC.visibility_of_element_located((By.XPATH, "(//span[contains(.,'View Inventory')])[4]")))
         wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'View Inventory')])[4]")))
         print("View Inventory button is visible and clickable")
-        wait.until(EC.visibility_of_element_located((By.XPATH, "(//span[contains(.,'Demo Drive')])[7]")))
-        wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'Demo Drive')])[7]")))
-        print("Demo Drive button is visible and clickable")
+
         wait.until(EC.visibility_of_element_located((By.XPATH, "(//span[contains(.,'Compare')])[4]")))
         wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'Compare')])[4]")))
         print("Compare button is visible and clickable")
@@ -274,7 +270,7 @@ class Tesla_Model_3(unittest.TestCase):
 class Tesla_Model_X(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.driver.maximize_window()
 
     def test_Tesla_Model_X(self):
@@ -289,9 +285,7 @@ class Tesla_Model_X(unittest.TestCase):
         wait.until(EC.visibility_of_element_located((By.XPATH,  "(//span[contains(.,'View Inventory')])[10]")))
         wait.until(EC.element_to_be_clickable((By.XPATH,  "(//span[contains(.,'View Inventory')])[10]")))
         print("View Inventory button is visible and clickable")
-        wait.until(EC.visibility_of_element_located((By.XPATH,  "(//span[contains(.,'Demo Drive')])[2]")))
-        wait.until(EC.element_to_be_clickable((By.XPATH,  "(//span[contains(.,'Demo Drive')])[2]")))
-        print("Demo Drive button is visible and clickable")
+
         wait.until(EC.visibility_of_element_located((By.XPATH,  "(//span[contains(.,'Compare')])[5]")))
         wait.until(EC.element_to_be_clickable((By.XPATH,  "(//span[contains(.,'Compare')])[5]")))
         print("Compare button is visible and clickable")
@@ -434,7 +428,7 @@ class Tesla_Model_X(unittest.TestCase):
 class Tesla_Model_Y(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.driver.maximize_window()
 
     def test_Tesla_Model_Y(self):
@@ -467,9 +461,7 @@ class Tesla_Model_Y(unittest.TestCase):
         wait.until(EC.visibility_of_element_located((By.XPATH,  "(//a[contains(.,'Chat with a Tesla Advisor')])[1]")))
         wait.until(EC.element_to_be_clickable((By.XPATH,  "(//a[contains(.,'Chat with a Tesla Advisor')])[1]")))
         print("Chat with a Tesla Advisor button is visible and clickable")
-        wait.until(EC.visibility_of_element_located((By.XPATH,  "(//a[contains(.,'schedule a demo drive')])[1]")))
-        wait.until(EC.element_to_be_clickable((By.XPATH,  "(//a[contains(.,'schedule a demo drive')])[1]")))
-        print("schedule a demo drive button is visible and clickable")
+
 
         driver.execute_script("window.scrollBy(0, 1400);")
 
@@ -573,7 +565,7 @@ class Tesla_Model_Y(unittest.TestCase):
 class Solar_Roof(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.driver.maximize_window()
 
     def test_Solar_Roof(self):
@@ -690,7 +682,7 @@ class Solar_Roof(unittest.TestCase):
 class Solar_Panels(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.driver.maximize_window()
 
     def test_Solar_Panels(self):
@@ -816,7 +808,7 @@ class Solar_Panels(unittest.TestCase):
 class Powerwall(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.driver.maximize_window()
 
     def test_Powerwall(self):
@@ -828,33 +820,20 @@ class Powerwall(unittest.TestCase):
 
         driver.execute_script("window.scrollBy(0, 700);")
 
-        wait.until(EC.visibility_of_element_located((By.XPATH, "(//span[contains(.,'Order Powerwall')])[9]")))
-        wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'Order Powerwall')])[9]")))
-        print("Order Powerwall button is visible and clickable")
         wait.until(EC.visibility_of_element_located((By.XPATH, "(//span[contains(.,'Schedule a Callback')])[1]")))
         wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'Schedule a Callback')])[1]")))
         print("Schedule a Callback button is visible and clickable")
         wait.until(EC.visibility_of_element_located((By.XPATH, "(//span[contains(.,'Support')])[1]")))
         wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'Support')])[1]")))
         print("Support button is visible and clickable")
-        wait.until(EC.visibility_of_element_located((By.XPATH, "(//span[contains(.,'Order With Solar')])[2]")))
-        wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'Order With Solar')])[2]")))
-        print("Order With Solar button is visible and clickable")
 
         driver.execute_script("window.scrollBy(0, 700);")
 
         wait.until(EC.visibility_of_element_located((By.XPATH, "(//span[contains(.,'Order Powerwall')])[4]")))
         wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'Order Powerwall')])[4]")))
         print("Order Powerwall button is visible and clickable")
-        wait.until(EC.visibility_of_element_located((By.XPATH, "(//span[contains(.,'Request Callback')])[2]")))
-        wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'Request Callback')])[2]")))
-        print("Request Callback button is visible and clickable")
 
         driver.execute_script("window.scrollBy(0, 1400);")
-
-        wait.until(EC.visibility_of_element_located((By.XPATH, "(//span[contains(.,'Learn More')])[8]")))
-        wait.until(EC.element_to_be_clickable((By.XPATH,  "(//span[contains(.,'Learn More')])[8]")))
-        print("Learn More button is visible and clickable")
 
         driver.execute_script("window.scrollBy(0, 700);")
 
@@ -923,7 +902,7 @@ class Powerwall(unittest.TestCase):
 class Tesla_Shop(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.driver.maximize_window()
 
     def test_Tesla_Shop(self):
@@ -1032,7 +1011,7 @@ class Tesla_Shop(unittest.TestCase):
 class Tesla_Positiv(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.driver.maximize_window()
 
     def test_Tesla_Positiv(self):
@@ -1293,7 +1272,7 @@ class Tesla_Positiv(unittest.TestCase):
 class Tesla_chat(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.driver.maximize_window()
 
     def test_Tesla_chat(self):

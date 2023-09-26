@@ -1,17 +1,19 @@
-
-
 import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.edge.service import Service
 
 
 class Chrome_tesla(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.driver.maximize_window()
 
     def test_tesla(self):
@@ -144,7 +146,7 @@ class Firefox_tesla(unittest.TestCase):
         self.driver.maximize_window()
 
     # As per unittest module, individual test should start with test_
-    def test_search_weather_firefox(self):
+    def test_firefox(self):
         driver = self.driver
         driver.get("https://www.tesla.com/models")
         wait = WebDriverWait(driver, 5)
@@ -287,7 +289,7 @@ class Edge_tesla(unittest.TestCase):
         wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'Demo Drive')])[2]")))
         print("Demo Drive button is visible and clickable")
         wait.until(EC.visibility_of_element_located((By.XPATH, "(//span[contains(.,'Compare')])[5]")))
-        wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'Compare')])[5]")))
+        wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'Compare')])[5b]")))
         print("Compare button is visible and clickable")
         wait.until(EC.visibility_of_element_located((By.XPATH, "(//span[contains(.,'Order Model S')])[1]")))
         wait.until(EC.element_to_be_clickable((By.XPATH, "(//span[contains(.,'Order Model S')])[1]")))
