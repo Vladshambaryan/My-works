@@ -62,8 +62,13 @@
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
+							"",
 							"pm.test(\"Response time is less than 1500ms\", function () {",
 							"    pm.expect(pm.response.responseTime).to.be.below(1500);",
+							"});",
+							"",
+							"pm.test(\"Response Size is less than 1500B\", function () {",
+							"    pm.expect(pm.response.responseSize).to.be.below(1500);",
 							"});",
 							"",
 							"//Header's tests",
@@ -176,7 +181,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": {{ID}},\n  \"petId\": {{PETID}},\n  \"quantity\": {{QTY}},\n  \"shipDate\": \"{{SHIPDATE}}\",\n  \"status\": \"{{STATUS}}\",\n  \"complete\": {{COMPLETE}}\n}"
+					"raw": "{\n    \"id\": {{ID}},\n    \"petId\": {{PETID}},\n    \"quantity\": \"{{QTY}}\",\n    \"shipDate\": \"{{SHIPDATE}}\",\n    \"status\": \"{{STATUS}}\",\n    \"complete\": {{COMPLETE}}\n}"
 				},
 				"url": {
 					"raw": "https://petstore.swagger.io/v2/store/order",
